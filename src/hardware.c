@@ -2682,7 +2682,7 @@ static const struct uart_t * get_by_type(char *type)
 
 void hw_init(void)
 {
-	strcpy(cfg.dev,"/dev/ttyHS2");
+	strcpy(cfg.dev,"/dev/ttyTHS2");
 	strcpy(cfg.type,"hci");
 	strcpy(cfg.psrfile,"bluecore6.psr");
 	cfg.init_speed = -1;
