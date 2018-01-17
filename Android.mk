@@ -22,6 +22,10 @@ include $(CLEAR_VARS)
 
 BDROID_DIR := $(TOP_DIR)system/bt
 
+ifeq ($(BOARD_HAVE_BCM_FM), true)
+LOCAL_CFLAGS += -DBLUEDROID_ENABLE_V4L2
+endif
+
 LOCAL_SRC_FILES := \
         src/bt_vendor_hci.c \
 		src/conf.c \
@@ -32,16 +36,27 @@ LOCAL_SRC_FILES := \
 
 LOCAL_C_INCLUDES += \
         $(LOCAL_PATH)/include \
-        $(BDROID_DIR)/hci/include
+        $(BDROID_DIR)/hci/include \
+        $(BDROID_DIR)/include \
+        $(BDROID_DIR)/device/include \
+        $(BDROID_DIR)
+
+LOCAL_C_INCLUDES += $(bdroid_C_INCLUDES)
+LOCAL_CFLAGS += $(bdroid_CFLAGS)
 
 LOCAL_SHARED_LIBRARIES := \
-        libcutils
+        libcutils \
+        liblog
 
 LOCAL_MODULE := libbt-vendor
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 LOCAL_MODULE_OWNER := broadcom
 LOCAL_PROPRIETARY_MODULE := true
+
+ifeq ($(BCM_BLUETOOTH_MANTA_BUG), true)
+    LOCAL_CFLAGS += -DMANTA_BUG
+endif
 
 include $(LOCAL_PATH)/vnd_buildcfg.mk
 
