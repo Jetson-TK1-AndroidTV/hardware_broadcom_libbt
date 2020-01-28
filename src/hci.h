@@ -37,7 +37,6 @@ extern "C" {
 #define HCI_MAX_ACL_SIZE	1024
 #define HCI_MAX_SCO_SIZE	255
 #define HCI_MAX_EVENT_SIZE	260
-#define HCI_MAX_FRAME_SIZE	(HCI_MAX_ACL_SIZE + 4)
 
 /* HCI dev events */
 #define HCI_DEV_REG	1

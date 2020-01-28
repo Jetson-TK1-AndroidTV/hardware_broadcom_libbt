@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-#ifeq ($(BOARD_HAVE_BLUETOOTH_HCI),true)
+ifeq ($(BOARD_HAVE_BLUETOOTH_HCI),true)
 
 LOCAL_PATH := $(call my-dir)
 
@@ -22,9 +22,16 @@ include $(CLEAR_VARS)
 
 BDROID_DIR := $(TOP_DIR)system/bt
 
-ifeq ($(BOARD_HAVE_BCM_FM), true)
-LOCAL_CFLAGS += -DBLUEDROID_ENABLE_V4L2
-endif
+LOCAL_CFLAGS += \
+        -Wall \
+        -Werror \
+	-Wno-uninitialized \
+        -Wno-switch \
+        -Wno-unused-function \
+        -Wno-unused-parameter \
+        -Wno-unused-variable \
+        -Wno-sometimes-uninitialized \
+
 
 LOCAL_SRC_FILES := \
         src/bt_vendor_hci.c \
@@ -44,7 +51,14 @@ LOCAL_C_INCLUDES += \
 LOCAL_C_INCLUDES += $(bdroid_C_INCLUDES)
 LOCAL_CFLAGS += $(bdroid_CFLAGS)
 
+LOCAL_HEADER_LIBRARIES := libutils_headers
+
+ifneq ($(BOARD_HAVE_BLUETOOTH_BCM_A2DP_OFFLOAD),)
+  LOCAL_STATIC_LIBRARIES := libbt-brcm_a2dp
+endif
+
 LOCAL_SHARED_LIBRARIES := \
+        libcutils \
         libcutils \
         liblog
 
@@ -54,12 +68,8 @@ LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 LOCAL_MODULE_OWNER := broadcom
 LOCAL_PROPRIETARY_MODULE := true
 
-ifeq ($(BCM_BLUETOOTH_MANTA_BUG), true)
-    LOCAL_CFLAGS += -DMANTA_BUG
-endif
-
 include $(LOCAL_PATH)/vnd_buildcfg.mk
 
 include $(BUILD_SHARED_LIBRARY)
 
-#endif
+endif

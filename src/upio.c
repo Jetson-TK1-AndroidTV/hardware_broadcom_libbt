@@ -32,10 +32,14 @@
 #include <utils/Log.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <string.h>
 #include <cutils/properties.h>
 #include "bt_vendor_hci.h"
 #include "upio.h"
 #include "userial_vendor.h"
+#include <stdio.h>
+#include <unistd.h>
+#include <time.h>
 
 /******************************************************************************
 **  Constants & Macros
@@ -65,7 +69,6 @@ static int init_rfkill()
     char path[64];
     char buf[16];
     int fd, sz, id;
-
 
     for (id = 0; ; id++)
     {

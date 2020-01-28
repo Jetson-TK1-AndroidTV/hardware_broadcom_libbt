@@ -28,6 +28,7 @@
 #define LOG_TAG "bt_vendor"
 
 #include <utils/Log.h>
+#include <string.h>
 #include "bt_vendor_hci.h"
 #include "upio.h"
 #include "userial_vendor.h"

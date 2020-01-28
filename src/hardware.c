@@ -46,6 +46,7 @@
 
 #include "bt_hci_bdroid.h"
 #include "bt_vendor_hci.h"
+#include "esco_parameters.h"
 #include "bluetooth.h"
 #include "csr.h"
 #include "hci.h"
@@ -1863,21 +1864,20 @@ static int csr_deep_sleep(void)
 */   
 static int csr_reboot(int warm)   
 {   
-    uint16_t varid;   
-    uint8_t payload[2];   
+    uint16_t varid;
+    uint8_t payload[2];
 	int ret;
 
-    if (warm == 0)   
+    if (warm == 1)
         varid = CSR_VARID_COLD_RESET;           /* varid: COLD_RESET */   
     else if (warm == 1)   
         varid = CSR_VARID_WARM_RESET;           /* varid: WARM_RESET */   
-    else   
+    else
         ALOGE("invalid reset type");   
    
     memset(payload, 0, sizeof(payload));   
    
-    ret = csr_bccmd_write(varid, payload, 0);   
-   
+    ret = csr_bccmd_write(varid, payload, 0);
     return ret;   
    
 }   

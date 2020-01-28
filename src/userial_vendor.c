@@ -36,12 +36,14 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <stdio.h>
+#include <string.h>
 #include "bt_vendor_hci.h"
 #include "userial.h"
 #include "userial_vendor.h"
 #include "hardware.h"
 #include "bluetooth.h"
 #include "hci.h"
+#include <unistd.h>
 
 /******************************************************************************
 **  Constants & Macros
@@ -56,6 +58,8 @@
 #else
 #define VNDUSERIALDBG(param, ...) {}
 #endif
+
+#define VND_PORT_NAME_MAXLEN    256
 
 /******************************************************************************
 **  Local type definitions

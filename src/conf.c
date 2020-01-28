@@ -32,6 +32,19 @@
 #include <string.h>
 #include "bt_vendor_hci.h"
 #include "hardware.h"
+#include <stdio.h>
+
+/******************************************************************************
+**  Externs
+******************************************************************************/
+int userial_set_port(char *p_conf_name, char *p_conf_value, int param);
+int hw_set_patch_file_path(char *p_conf_name, char *p_conf_value, int param);
+int hw_set_patch_file_name(char *p_conf_name, char *p_conf_value, int param);
+int hw_set_pre_patch_file_name(char *p_conf_name, char *p_conf_value, int param);
+int userial_set_force_use_2_stop_bits(char *p_conf_name, char *p_conf_value, int param);
+#if (VENDOR_LIB_RUNTIME_TUNING_ENABLED == TRUE)
+int hw_set_patch_settlement_delay(char *p_conf_name, char *p_conf_value, int param);
+#endif
 
 /******************************************************************************
 **  Local type definitions
