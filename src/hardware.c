@@ -1868,7 +1868,7 @@ static int csr_reboot(int warm)
     uint8_t payload[2];
 	int ret;
 
-    if (warm == 1)
+    if (warm == 0)
         varid = CSR_VARID_COLD_RESET;           /* varid: COLD_RESET */   
     else if (warm == 1)   
         varid = CSR_VARID_WARM_RESET;           /* varid: WARM_RESET */   
